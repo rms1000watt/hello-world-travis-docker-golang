@@ -1,8 +1,6 @@
 sudo: required
 
-# language: go
-# go:
-# - "1.10.3"
+language: go
 
 services:
 - docker
@@ -26,7 +24,7 @@ before_deploy:
 
 deploy:
   provider: script
-  script: |
+  script: >-
     docker push "${IMAGE_NAME}:latest" &&
     docker push "${IMAGE_NAME}:${datetime}" &&
     docker push "${IMAGE_NAME}:${git_hash}" &&
