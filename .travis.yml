@@ -1,15 +1,15 @@
 sudo: required
 
-language: go
-go:
-- "1.10.3"
+# language: go
+# go:
+# - "1.10.3"
 
 services:
 - docker
 
 env:
   global:
-  - IMAGE_NAME: hello-world-travis-docker-golang
+  - IMAGE_NAME: rms1000watt/hello-world-travis-docker-golang
 
 script:
 - docker build -t "$IMAGE_NAME" .
@@ -18,11 +18,11 @@ before_deploy:
 - datetime="$(date +'%Y%m%d%H%M')"
 - version="$(cat .dockerversion)"
 - git_hash="$(git log -n 1 --pretty=format:'%H')"
-- docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASS"
 - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
 - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${datetime}"
 - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${git_hash}"
 - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${version}"
+- docker login -u "$DOCKER_HUB_USER" -p "$DOCKER_HUB_PASS"
 
 deploy:
   provider: script
