@@ -14,7 +14,7 @@ script:
 
 before_deploy:
 - datetime="$(date +'%Y%m%d%H%M')"
-- version="$(cat .dockerversion)"
+- version="$(cat .version)"
 - git_hash="$(git log -n 1 --pretty=format:'%H')"
 - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
 - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${datetime}"
